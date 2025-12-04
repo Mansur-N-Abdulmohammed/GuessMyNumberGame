@@ -7,7 +7,6 @@
 // document.querySelector('.guess').value = 90;
 // console.log(document.querySelector('.guess').value);
 
-document.querySelector('.number');
 const check = document.querySelector('.check');
 let warn = document.querySelector('.warn');
 let mess = document.querySelector('.message');
@@ -15,8 +14,8 @@ let body = document.querySelector('body');
 let mistry = document.querySelector('.number');
 let sc = document.querySelector('.score');
 let hsc = document.querySelector('.highscore');
+// you cantt use const to random
 let random = Math.trunc(Math.random() * 20) + 1;
-mistry.textContent = random;
 
 check.addEventListener('click', function () {
   // you have to use let or var insted of const for input
@@ -28,18 +27,23 @@ check.addEventListener('click', function () {
     mess.textContent = `Enter Number Except Zero ⛔`;
   } else if (val === random) {
     mess.textContent = `🎉Correct🎉`;
-    random = Math.trunc(Math.random() * 10) + 1;
     mistry.textContent = random;
-    ++hsc.textContent;
-    sc.textContent = Number(sc.textContent) + 2;
     // changing the style
     body.style.backgroundColor = '#038750';
-    body.style.color = 'yellow';
+
+    if (Number(sc.textContent) >= Number(hsc.textContent)) {
+      hsc.textContent = sc.textContent;
+    }
+
     setTimeout(() => {
+      random = Math.trunc(Math.random() * 20) + 1;
+      mistry.textContent = '?';
       body.style.backgroundColor = 'grey';
-      body.style.color = 'yellow';
       mess.textContent = `Start guessing...`;
+      sc.textContent = 20;
     }, 2000);
+    //
+    //
   } else if (val > random && Number(sc.textContent) !== 0) {
     --sc.textContent;
     mess.textContent = `too high 📈`;
@@ -61,5 +65,9 @@ check.addEventListener('click', function () {
 
 const again = document.querySelector('.again');
 again.addEventListener('click', function () {
-  location.reload();
+  random = Math.trunc(Math.random() * 20) + 1;
+  mistry.textContent = '?';
+
+  sc.textContent = 20;
+  hsc.textContent = 0;
 });
